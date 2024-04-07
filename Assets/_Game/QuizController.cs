@@ -17,11 +17,13 @@ namespace Game
             _questionIndex = 0;
             DisplayQuestion();
             _questionView.Selected += OnSelected;
+            _questionView.Next += OnNextClicked;
         }
 
         private void OnDestroy()
         {
             _questionView.Selected -= OnSelected;
+            _questionView.Next -= OnNextClicked;
         }
 
         private void DisplayQuestion()
@@ -44,6 +46,10 @@ namespace Game
         private void OnSelected(QuestionOptionDto option)
         {
             Debug.Log($"Option: {option.Text}");
+        }
+
+        private void OnNextClicked()
+        {
             DisplayQuestion();
         }
     }

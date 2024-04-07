@@ -8,6 +8,7 @@ namespace Game
     public class QuestionOptionView : MonoBehaviour
     {
         public event Action<QuestionOptionDto> Clicked;
+        public string OptionId { get; private set; }
 
         [SerializeField]
         private TMP_Text _label;
@@ -20,7 +21,24 @@ namespace Game
         public void Initialize(QuestionOptionDto option)
         {
             _option = option;
+            OptionId = _option.Id;
             _label.text = $"{option.Text}";
+        }
+
+        public void Lock()
+        {
+            _button.transition = Selectable.Transition.None;
+            _button.interactable = false;
+        }
+
+        public void HighlightCorrect()
+        {
+            _button.image.color = GlobalSettings.CorrectAnswerColor;
+        }
+
+        public void HighlightWrong()
+        {
+            _button.image.color = GlobalSettings.WrongAnswerColor;
         }
 
         private void Start()
