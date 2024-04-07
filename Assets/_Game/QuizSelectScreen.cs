@@ -15,7 +15,7 @@ namespace Game
         [SerializeField]
         private Button _backButton;
 
-        private readonly QuizProvider _quizProvider = new QuizProvider();
+        private readonly QuizProvider _quizProvider = GlobalContext.QuizProvider;
         private readonly List<QuizListItem> _items = new();
 
         private void Start()
