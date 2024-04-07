@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game
 {
@@ -11,8 +12,11 @@ namespace Game
         [SerializeField]
         private QuizListItem _listItemPrefab;
 
+        [SerializeField]
+        private Button _backButton;
+
         private readonly QuizProvider _quizProvider = new QuizProvider();
-        private List<QuizListItem> _items = new();
+        private readonly List<QuizListItem> _items = new();
 
         private void Start()
         {
@@ -23,13 +27,27 @@ namespace Game
                 item.Clicked += OnQuizSelected;
                 _items.Add(item);
             }
+
+            _backButton.onClick.AddListener(Hide);
         }
 
         private void OnDestroy()
         {
             foreach (var item in _items)
                 item.Clicked -= OnQuizSelected;
+
             _items.Clear();
+            _backButton.onClick.RemoveListener(Hide);
+        }
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
         }
 
         private void OnQuizSelected(QuizDto quiz)
