@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game
 {
@@ -27,10 +26,11 @@ namespace Game
         private Transform _optionsRoot;
 
         [SerializeField]
-        private Button _nextButton;
-
+        private QuestionNavigation _navigation;
+        
         private QuestionDto _question;
-        private int _questionNumber;
+        private int _questionIndex;
+        private int _questionCount;
         private readonly List<QuestionOptionView> _options = new();
 
         private void OnValidate()
@@ -40,21 +40,22 @@ namespace Game
 
         private void Start()
         {
-            _nextButton.onClick.AddListener(OnNextClicked);
+            _navigation.Proceed += OnNextClicked;
         }
 
         private void OnDestroy()
         {
-            _nextButton.onClick.RemoveListener(OnNextClicked);
+            _navigation.Proceed -= OnNextClicked;
         }
 
-        public void Display(QuestionDto question, int questionNumber)
+        public void Display(QuestionDto question, int questionIndex, int questionCount)
         {
             _question = question;
-            _questionNumber = questionNumber;
-            _headerLabel.text = string.Format(_headerFormat, _questionNumber + 1);
+            _questionIndex = questionIndex;
+            _questionCount = questionCount;
+            _headerLabel.text = string.Format(_headerFormat, _questionIndex + 1);
             _questionLabel.text = _question.Text;
-            _nextButton.gameObject.SetActive(false);
+            _navigation.Hide();
 
             foreach (var option in _question.Options)
             {
@@ -99,7 +100,10 @@ namespace Game
             }
 
             Selected?.Invoke(option);
-            _nextButton.gameObject.SetActive(true);
+            
+            _navigation
+                .WithContext(questionIndex: _questionIndex, questionCount: _questionCount)
+                .Show();
         }
 
         private void OnNextClicked()

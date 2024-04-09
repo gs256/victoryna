@@ -38,7 +38,7 @@ namespace Game
             }
             else
             {
-                _questionView.Display(_quiz.Questions[_questionIndex], _questionIndex);
+                _questionView.Display(_quiz.Questions[_questionIndex], _questionIndex, _quiz.Questions.Length);
                 _questionIndex += 1;
             }
         }
