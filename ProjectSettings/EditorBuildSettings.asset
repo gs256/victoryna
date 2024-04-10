@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Game/Scenes/Menu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/_Game/Scenes/Quiz.unity
+    guid: 5b41bdf47eab8ad49b8fab3bf044680c
+  - enabled: 1
+    path: Assets/_Game/Scenes/Results.unity
+    guid: 15cdcfb3bb513574b866f6c3ade8f827
   m_configObjects: {}

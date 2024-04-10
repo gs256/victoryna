@@ -8,5 +8,7 @@ namespace Game
 
         public static Color CorrectAnswerColor = Color.green;
         public static Color WrongAnswerColor = Color.red;
+        
+        public const string ResultsSceneName = "Results";
     }
 }

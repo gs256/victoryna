@@ -34,7 +34,7 @@ namespace Game
             if (_quiz.Questions.Length <= _questionIndex)
             {
                 _questionView.Clear();
-                Debug.Log("Quiz completed");
+                OnQuizCompleted();
             }
             else
             {
@@ -51,6 +51,12 @@ namespace Game
         private void OnNextClicked()
         {
             DisplayQuestion();
+        }
+
+        private async void OnQuizCompleted()
+        {
+            Debug.Log("Quiz completed");
+            await GlobalContext.SceneLoader.LoadResultsScene();
         }
     }
 }
